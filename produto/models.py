@@ -1,6 +1,7 @@
 from PIL import Image
 from django.conf import settings
 from django.db import models
+from django.utils.text import slugify
 import os
 
 
@@ -43,6 +44,10 @@ class Produto(models.Model):
         )
 
     def save(self, *args, **kwargs):
+        if not self.slug:
+            slug = f'{slugify(self.nome)}'
+            self.slug = slug
+
         super().save(*args, **kwargs)
 
         max_image_size = 800
