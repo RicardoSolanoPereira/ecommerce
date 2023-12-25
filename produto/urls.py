@@ -1,3 +1,4 @@
+# flake8: noqa
 from django.urls import path
 from . import views
 
@@ -11,5 +12,5 @@ urlpatterns = [
     path('removerdocarrinho/', views.RemoverDoCarrinho.as_view(),
          name="removerdocarrinho"),
     path('carrinho/', views.Carrinho.as_view(), name="carrinho"),
-    path('finalizar/', views.Finalizar.as_view(), name="finalizar"),
+    path('resumodacompra/', views.ResumoDaCompra.as_view(), name="resumodacompra"),
 ]
