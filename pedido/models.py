@@ -1,10 +1,11 @@
-from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Pedido(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     total = models.FloatField()
+    qtd_total = models.PositiveIntegerField()
     status = models.CharField(
         default="C",
         max_length=1,
@@ -19,7 +20,7 @@ class Pedido(models.Model):
     )
 
     def __str__(self):
-        return f'Pedido n. {self.pk}'
+        return f'Pedido N. {self.pk}'
 
 
 class ItemPedido(models.Model):
@@ -34,7 +35,7 @@ class ItemPedido(models.Model):
     imagem = models.CharField(max_length=2000)
 
     def __str__(self):
-        return f'item do {self.pedido}'
+        return f'Item do {self.pedido}'
 
     class Meta:
         verbose_name = 'Item do pedido'

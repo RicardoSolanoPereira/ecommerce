@@ -1,8 +1,8 @@
-from PIL import Image
 from django.conf import settings
+import os
+from PIL import Image
 from django.db import models
 from django.utils.text import slugify
-import os
 from utils import utils
 
 
@@ -15,7 +15,7 @@ class Produto(models.Model):
     slug = models.SlugField(unique=True, blank=True, null=True)
     preco_marketing = models.FloatField(verbose_name='Preço')
     preco_marketing_promocional = models.FloatField(
-        default=0, verbose_name='Preço Promo')
+        default=0, verbose_name='Preço Promo.')
     tipo = models.CharField(
         default='V',
         max_length=1,
@@ -31,7 +31,7 @@ class Produto(models.Model):
 
     def get_preco_promocional_formatado(self):
         return utils.formata_preco(self.preco_marketing_promocional)
-    get_preco_promocional_formatado.short_description = 'Preço Promo'
+    get_preco_promocional_formatado.short_description = 'Preço Promo.'
 
     @staticmethod
     def resize_image(img, new_width=800):
@@ -70,10 +70,10 @@ class Produto(models.Model):
 
 class Variacao(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
-    nome = models.CharField(max_length=50)
+    nome = models.CharField(max_length=50, blank=True, null=True)
     preco = models.FloatField()
     preco_promocional = models.FloatField(default=0)
-    estoque = models.PositiveBigIntegerField(default=1)
+    estoque = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return self.nome or self.produto.nome
